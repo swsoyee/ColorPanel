@@ -1,0 +1,12 @@
+name: ColorPanel
+title: ColorPanel
+username:
+account: infinityloop
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1515180
+bundleId: 2611359
+url: https://infinityloop.shinyapps.io/ColorPanel/
+when: 1574485394.59113
+asMultiple: FALSE
+asStatic: FALSE
