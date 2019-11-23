@@ -4,7 +4,6 @@ library(scales)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-    
     selectionListMax <- list(
         "npg-nrc" = 10,
         "aaas-default" = 10,
@@ -135,11 +134,11 @@ shinyServer(function(input, output, session) {
     # })
     
     output$colorPanelIntro <- renderUI({
-        
         colorSample <- lapply(1:length(selectionListMax), function(i) {
             output[[names(selectionListMax[i])]] <- renderPlot({
                 info <- strsplit(names(selectionListMax[i]), "-")[[1]]
-                colorPal <- do.call(paste0("pal_", info[1]), list(info[2]))(selectionListMax[[i]])
+                colorPal <-
+                    do.call(paste0("pal_", info[1]), list(info[2]))(selectionListMax[[i]])
                 op <- par(mar = c(0.5, 0, 0, 0), bg = '#ecf0f5')
                 plot(
                     c(0, length(colorPal)),
@@ -155,10 +154,18 @@ shinyServer(function(input, output, session) {
                 i <- 0:(length(colorPal) - 1)
                 rect(0 + i, 0, 1 + i, 1, col = colorPal, lwd = 0)
             })
-            tagList(
-                tags$h5(tags$code(names(selectionListMax[i])), "(", selectionListMax[i], ")"),
-                plotOutput(names(selectionListMax[i]), height = 40)
-            )
+            if (selectionListMax[i] %in% seq(input$sampleRange[1], input$sampleRange[2]) ||
+                (input$sampleRange[2] == 25 && selectionListMax[i] > 25)) {
+                tagList(
+                    tags$h5(
+                        tags$code(names(selectionListMax[i])),
+                        "(",
+                        selectionListMax[i],
+                        ")"
+                    ),
+                    plotOutput(names(selectionListMax[i]), height = 30)
+                )
+            }
         })
         
     })

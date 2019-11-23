@@ -42,6 +42,10 @@ shinyUI(
         dashboardBody(
             tabItems(
                 tabItem(tabName = "examples",
+                        box(width = 12,
+                        sliderInput("sampleRange", 
+                                    "Number Range:",
+                                    min = 2, max = 25, step = 1, value = c(8, 11))),
                         uiOutput("colorPanelIntro"),
                 ),
                 tabItem(tabName = "colorPicker",
